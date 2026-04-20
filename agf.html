@@ -1,0 +1,366 @@
+import React, { useState } from 'react';
+import { 
+  LayoutDashboard, 
+  Target, 
+  Stethoscope, 
+  Layers, 
+  ClipboardCheck, 
+  CheckCircle2, 
+  Flag, 
+  TrendingUp, 
+  AlertTriangle, 
+  DollarSign, 
+  Users, 
+  BarChart3, 
+  ChevronRight, 
+  Search,
+  Filter,
+  ArrowUpRight,
+  ArrowDownRight,
+  Zap,
+  Activity
+} from 'lucide-react';
+
+const App = () => {
+  const [activeTab, setActiveTab] = useState('home');
+
+  // KPIs Summary
+  const kpis = [
+    { label: 'Projetos Ativos', value: '42', trend: '+3', trendDir: 'up' },
+    { label: 'Valor do Portfólio', value: 'R$ 12.8M', trend: '+12%', trendDir: 'up' },
+    { label: 'Valor em Pipeline', value: 'R$ 5.4M', trend: '-2%', trendDir: 'down' },
+    { label: 'ROI Médio', value: '24.5%', trend: '+1.2%', trendDir: 'up' },
+    { label: 'Saúde Portfólio', value: '92%', trend: 'Estável', trendDir: 'up' },
+  ];
+
+  // Pipeline Maturity Data (Gates)
+  const gateData = [
+    { gate: 'Gate 0', label: 'Intake & Qualificação', count: 25, color: 'bg-slate-300' },
+    { gate: 'Gate 1', label: 'Diagnóstico & Enquadramento', count: 18, color: 'bg-blue-400' },
+    { gate: 'Gate 2', label: 'Estruturação de Solução', count: 12, color: 'bg-indigo-400' },
+    { gate: 'Gate 3', label: 'Planejamento Executivo', count: 9, color: 'bg-violet-400' },
+    { gate: 'Gate 4', label: 'Execução Controlada', count: 6, color: 'bg-emerald-400' },
+    { gate: 'Gate 5', label: 'Encerramento & Valor', count: 3, color: 'bg-green-500' },
+  ];
+
+  // Ranking Top Projects by AGF Score
+  const topProjects = [
+    { name: 'Expansão DataCenter Sul', score: 94, value: 'R$ 2.1M', status: 'Verde', gate: 'Gate 4' },
+    { name: 'Migração Cloud SAP', score: 88, value: 'R$ 1.5M', status: 'Amarelo', gate: 'Gate 3' },
+    { name: 'Redesign UX Core Banking', score: 82, value: 'R$ 850k', status: 'Verde', gate: 'Gate 2' },
+    { name: 'IA Preditiva de Churn', score: 79, value: 'R$ 400k', status: 'Verde', gate: 'Gate 4' },
+    { name: 'App Loyalty V2', score: 75, value: 'R$ 1.2M', status: 'Vermelho', gate: 'Gate 1' },
+  ];
+
+  return (
+    <div className="flex h-screen bg-[#f8fafc] text-slate-800 font-sans">
+      {/* SIDEBAR - Governança por Gates */}
+      <aside className="w-72 bg-[#0f172a] text-slate-300 flex flex-col shadow-xl shrink-0">
+        <div className="p-6 border-b border-slate-800">
+          <h1 className="text-2xl font-bold text-white tracking-tight flex items-center gap-2">
+            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">A</div>
+            AGF <span className="text-blue-500 text-sm font-normal">v3.0</span>
+          </h1>
+        </div>
+
+        <nav className="flex-1 overflow-y-auto p-4 space-y-8">
+          <div>
+            <p className="px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Estratégico</p>
+            <NavItem active={activeTab === 'home'} icon={<LayoutDashboard size={18}/>} label="Dashboard Executivo" onClick={() => setActiveTab('home')} />
+          </div>
+
+          <div>
+            <p className="px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Maturidade (Pipeline)</p>
+            <div className="space-y-1">
+              <NavItem icon={<Target size={18}/>} label="Gate 0 — Intake" count="25" />
+              <NavItem icon={<Stethoscope size={18}/>} label="Gate 1 — Diagnóstico" count="18" />
+              <NavItem icon={<Layers size={18}/>} label="Gate 2 — Estruturação" count="12" />
+              <NavItem icon={<ClipboardCheck size={18}/>} label="Gate 3 — Planejamento" count="9" />
+              <NavItem icon={<Activity size={18}/>} label="Gate 4 — Execução" count="6" />
+              <NavItem icon={<CheckCircle2 size={18}/>} label="Gate 5 — Valor Entregue" count="3" />
+            </div>
+          </div>
+
+          <div>
+            <p className="px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Gestão Global</p>
+            <div className="space-y-1">
+              <NavItem icon={<Layers size={18}/>} label="Portfólio Consolidado" />
+              <NavItem icon={<DollarSign size={18}/>} label="Financeiro & Forecast" />
+              <NavItem icon={<AlertTriangle size={18}/>} label="Riscos & Issues" />
+              <NavItem icon={<Users size={18}/>} label="Capacidade & Recursos" />
+              <NavItem icon={<BarChart3 size={18}/>} label="Relatórios Executivos" />
+            </div>
+          </div>
+        </nav>
+
+        <div className="p-4 border-t border-slate-800">
+           <div className="flex items-center gap-3 p-2 rounded-lg bg-slate-900/50">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-400 flex items-center justify-center text-white font-bold">JD</div>
+              <div className="overflow-hidden">
+                <p className="text-sm font-medium text-white truncate">João Diretor</p>
+                <p className="text-xs text-slate-500 truncate">C-Level Executive</p>
+              </div>
+           </div>
+        </div>
+      </aside>
+
+      {/* MAIN CONTENT */}
+      <main className="flex-1 flex flex-col overflow-hidden">
+        {/* HEADER */}
+        <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 shrink-0">
+          <div className="flex items-center gap-4 flex-1">
+            <div className="relative w-96">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
+              <input 
+                type="text" 
+                placeholder="Buscar projeto, ID ou cliente..." 
+                className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
+              />
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <button className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50 rounded-lg transition-colors border border-slate-200">
+              <Filter size={16} /> Filtros
+            </button>
+            <button className="px-4 py-2 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-sm">
+              Novo Projeto
+            </button>
+          </div>
+        </header>
+
+        {/* DASHBOARD AREA */}
+        <div className="flex-1 overflow-y-auto p-8 space-y-8">
+          
+          {/* 3.1. VISÃO GERAL (KPI STRIP) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {kpis.map((kpi, i) => (
+              <div key={i} className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-200 transition-all cursor-pointer">
+                <div className="flex justify-between items-start mb-2">
+                  <span className="text-xs font-semibold text-slate-400 uppercase">{kpi.label}</span>
+                  <div className={`flex items-center text-[10px] font-bold px-1.5 py-0.5 rounded ${kpi.trendDir === 'up' ? 'text-emerald-600 bg-emerald-50' : 'text-rose-600 bg-rose-50'}`}>
+                    {kpi.trendDir === 'up' ? <ArrowUpRight size={10}/> : <ArrowDownRight size={10}/>}
+                    {kpi.trend}
+                  </div>
+                </div>
+                <div className="text-2xl font-bold text-slate-900 tracking-tight">{kpi.value}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            {/* 3.2. PIPELINE ESTRATÉGICO (FUNIL) */}
+            <div className="lg:col-span-4 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="font-bold text-slate-800 flex items-center gap-2">
+                  <Layers size={18} className="text-blue-500" />
+                  Maturidade por Gate
+                </h3>
+              </div>
+              <div className="space-y-4">
+                {gateData.map((gate, i) => (
+                  <div key={i} className="group">
+                    <div className="flex justify-between text-xs mb-1.5">
+                      <span className="font-semibold text-slate-600">{gate.label}</span>
+                      <span className="text-slate-400">{gate.count} iniciativas</span>
+                    </div>
+                    <div className="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                      <div 
+                        className={`h-full ${gate.color} rounded-full transition-all duration-1000`} 
+                        style={{ width: `${(gate.count / 25) * 100}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-8 pt-4 border-t border-slate-100">
+                <div className="flex items-center gap-2 text-amber-600 bg-amber-50 p-3 rounded-lg border border-amber-100">
+                  <AlertTriangle size={16} />
+                  <span className="text-xs font-medium">Gargalo: Gate 1 com retenção de 15 dias acima da média.</span>
+                </div>
+              </div>
+            </div>
+
+            {/* 3.3. SCORE AGF (PRIORIZAÇÃO) */}
+            <div className="lg:col-span-4 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="font-bold text-slate-800 flex items-center gap-2">
+                  <Zap size={18} className="text-amber-500" />
+                  Score AGF (Top 5)
+                </h3>
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Prioridade</span>
+              </div>
+              <div className="space-y-3">
+                {topProjects.map((proj, i) => (
+                  <div key={i} className="flex items-center gap-4 p-3 rounded-xl border border-slate-50 hover:border-blue-100 hover:bg-blue-50/30 transition-all cursor-pointer">
+                    <div className="w-10 h-10 shrink-0 flex items-center justify-center bg-white border-2 border-slate-100 rounded-xl font-black text-blue-600 shadow-sm">
+                      {proj.score}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-bold text-slate-800 truncate">{proj.name}</p>
+                      <div className="flex items-center gap-2 mt-0.5">
+                        <span className="text-[10px] font-medium px-1.5 py-0.5 bg-slate-100 text-slate-500 rounded">{proj.gate}</span>
+                        <span className="text-[10px] font-medium text-slate-400">{proj.value}</span>
+                      </div>
+                    </div>
+                    <div className={`w-2.5 h-2.5 rounded-full ring-4 ${
+                      proj.status === 'Verde' ? 'bg-emerald-500 ring-emerald-50' : proj.status === 'Amarelo' ? 'bg-amber-500 ring-amber-50' : 'bg-rose-500 ring-rose-50'
+                    }`}></div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* 3.8. ALERTAS E 3.4 RISCOS */}
+            <div className="lg:col-span-4 space-y-6">
+              {/* Alertas Executivos */}
+              <div className="bg-white border-2 border-rose-100 p-6 rounded-xl shadow-sm relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-2 opacity-10">
+                   <Flag size={48} className="text-rose-600" />
+                </div>
+                <h3 className="text-rose-700 font-bold flex items-center gap-2 mb-4">
+                  <Flag size={18} />
+                  Alertas Críticos
+                </h3>
+                <div className="space-y-3">
+                  <div className="p-3 bg-rose-50 rounded-lg border border-rose-100">
+                    <p className="text-xs font-bold text-rose-800 flex items-center justify-between">
+                      Iniciativas Paradas {">"} 15 dias
+                      <span className="bg-rose-200 px-1.5 rounded text-[10px]">04</span>
+                    </p>
+                    <p className="text-[10px] text-rose-600 mt-1 italic">Requer revisão de alocação de recursos.</p>
+                  </div>
+                  <div className="p-3 bg-amber-50 rounded-lg border border-amber-100">
+                    <p className="text-xs font-bold text-amber-800">Estouro de Orçamento: SAP Cloud</p>
+                    <p className="text-[10px] text-amber-600 mt-1 italic">R$ 45k acima do planejado no Gate 4.</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Status do Portfólio (Donut) */}
+              <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <h3 className="font-bold text-slate-800 mb-6 text-sm">Saúde Operacional</h3>
+                <div className="flex items-center gap-6">
+                   <div className="relative w-24 h-24 shrink-0">
+                      <svg className="w-full h-full transform -rotate-90">
+                        <circle cx="48" cy="48" r="40" stroke="currentColor" strokeWidth="8" fill="transparent" className="text-slate-100" />
+                        <circle cx="48" cy="48" r="40" stroke="currentColor" strokeWidth="8" fill="transparent" strokeDasharray="251.2" strokeDashoffset="50" className="text-emerald-500" />
+                      </svg>
+                      <div className="absolute inset-0 flex items-center justify-center font-bold text-lg">80%</div>
+                   </div>
+                   <div className="space-y-2 flex-1">
+                      <div className="flex items-center justify-between text-[10px] font-bold">
+                        <span className="text-emerald-600">VERDE (34)</span>
+                        <span className="text-slate-400">80%</span>
+                      </div>
+                      <div className="flex items-center justify-between text-[10px] font-bold">
+                        <span className="text-amber-600">AMARELO (6)</span>
+                        <span className="text-slate-400">15%</span>
+                      </div>
+                      <div className="flex items-center justify-between text-[10px] font-bold">
+                        <span className="text-rose-600">VERMELHO (2)</span>
+                        <span className="text-slate-400">5%</span>
+                      </div>
+                   </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          {/* 3.5. FINANCEIRO E 3.7 CAPACIDADE */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Bloco Financeiro */}
+            <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+               <div className="flex justify-between items-center mb-6">
+                <h3 className="font-bold text-slate-800 flex items-center gap-2">
+                  <DollarSign size={18} className="text-emerald-600" />
+                  Pipeline Financeiro (Por Maturidade)
+                </h3>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="p-4 bg-slate-50 rounded-xl">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Qualificação</p>
+                  <p className="text-lg font-black text-slate-800">R$ 5.4M</p>
+                </div>
+                <div className="p-4 bg-slate-50 rounded-xl">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Aprovação</p>
+                  <p className="text-lg font-black text-slate-800">R$ 2.1M</p>
+                </div>
+                <div className="p-4 bg-slate-50 rounded-xl">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Execução</p>
+                  <p className="text-lg font-black text-slate-800">R$ 4.8M</p>
+                </div>
+                <div className="p-4 bg-blue-600 rounded-xl text-white">
+                  <p className="text-[10px] font-bold text-blue-200 uppercase mb-1">Realizado</p>
+                  <p className="text-lg font-black tracking-tight text-white">R$ 1.2M</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Capacidade e Alocação */}
+            <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+               <div className="flex justify-between items-center mb-6">
+                <h3 className="font-bold text-slate-800 flex items-center gap-2">
+                  <Users size={18} className="text-indigo-500" />
+                  Heatmap de Alocação
+                </h3>
+                <button className="text-[10px] font-bold text-blue-600 uppercase">Ver Overbooking</button>
+              </div>
+              <div className="space-y-5">
+                <ResourceBar label="TI Infrastructure" value={85} status="high" />
+                <ResourceBar label="UX/UI Design" value={60} status="normal" />
+                <ResourceBar label="Cybersecurity" value={95} status="critical" />
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </main>
+    </div>
+  );
+};
+
+// Componente para barras de recursos
+const ResourceBar = ({ label, value, status }) => {
+  const barColor = status === 'critical' ? 'bg-rose-500' : status === 'high' ? 'bg-amber-500' : 'bg-indigo-500';
+  const textColor = status === 'critical' ? 'text-rose-600' : status === 'high' ? 'text-amber-600' : 'text-slate-600';
+  
+  return (
+    <div className="flex items-center gap-4">
+      <span className="text-xs font-bold w-28 text-slate-600 truncate">{label}</span>
+      <div className="flex-1 h-4 bg-slate-100 rounded-full overflow-hidden flex">
+        <div className={`h-full ${barColor} transition-all duration-700`} style={{ width: `${value}%` }}></div>
+      </div>
+      <span className={`text-[10px] font-black w-8 text-right ${textColor}`}>{value}%</span>
+    </div>
+  );
+};
+
+// Componente auxiliar para itens do menu
+const NavItem = ({ icon, label, count, active, onClick }) => {
+  return (
+    <button 
+      onClick={onClick}
+      className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-200 group ${
+        active 
+          ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/40 translate-x-1' 
+          : 'hover:bg-slate-800/50 text-slate-400 hover:text-white'
+      }`}
+    >
+      <div className="flex items-center gap-3">
+        <span className={active ? 'text-white' : 'text-slate-500 group-hover:text-blue-400'}>{icon}</span>
+        <span className="text-sm font-semibold tracking-tight">{label}</span>
+      </div>
+      {count && (
+        <span className={`text-[10px] font-black px-2 py-0.5 rounded-lg ${
+          active ? 'bg-blue-500 text-white' : 'bg-slate-800 text-slate-500 group-hover:text-slate-300'
+        }`}>
+          {count}
+        </span>
+      )}
+    </button>
+  );
+};
+
+export default App;

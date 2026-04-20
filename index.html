@@ -46,7 +46,7 @@
             transform: scale(1.005);
         }
 
-        /* Área específica do HUBX */
+        /* Área específica do HUBX - Agora link direto para GitHub */
         .area-hubx { 
             top: 15%; 
             left: 3%; 
@@ -59,7 +59,7 @@
             background: rgba(124, 58, 237, 0.05);
         }
 
-        /* Área específica do AGF destacada na nova imagem */
+        /* Área específica do AGF */
         .area-agf { 
             top: 18%; 
             left: 24%; 
@@ -127,8 +127,10 @@
 <body>
 
     <div class="bg-container">
-        <!-- Hotspots sobre a imagem de fundo -->
-        <div onclick="openModal('hubx')" class="hotspot area-hubx" title="Abrir HUBX.html"></div>
+        <!-- Gatilho HUBX (Link Externo GitHub) -->
+        <a href="https://github.com/regis-bcode/D-FLY-ECOSISTEMA/blob/main/HUBX.html" target="_blank" class="hotspot area-hubx" title="Abrir HUBX no GitHub"></a>
+        
+        <!-- Gatilhos AGF e ORBIT (Modais Internos) -->
         <div onclick="openModal('agf')" class="hotspot area-agf" title="Abrir AGF.html"></div>
         <div onclick="openModal('orbit')" class="hotspot area-orbit" title="Abrir ORBIT.html"></div>
     </div>
@@ -164,40 +166,6 @@
 
     <script>
         const documents = {
-            hubx: {
-                title: 'HUBX',
-                subtitle: 'Inteligência de Demanda (Pré-Projeto)',
-                color: 'bg-indigo-600',
-                fileName: 'hubx.html',
-                content: `
-                    <div class="grid md:grid-cols-2 gap-10">
-                        <div class="space-y-6">
-                            <div class="flex items-start gap-4">
-                                <div class="p-3 bg-indigo-50 rounded-xl text-indigo-600">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-gray-800">Interpretação</h4>
-                                    <p class="text-gray-500 text-sm">Tradução da necessidade real do cliente em requisitos.</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start gap-4">
-                                <div class="p-3 bg-indigo-50 rounded-xl text-indigo-600">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-gray-800">Estruturação</h4>
-                                    <p class="text-gray-500 text-sm">Organização da demanda técnica e comercial.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-indigo-900 p-8 rounded-3xl text-white flex flex-col justify-center">
-                            <p class="text-indigo-200 text-xs font-bold uppercase mb-2">Ponto de Partida</p>
-                            <h4 class="text-2xl font-black">ENTRADA: Necessidade do Cliente</h4>
-                        </div>
-                    </div>
-                `
-            },
             agf: {
                 title: 'AGF',
                 subtitle: 'Adaptive Gate Framework (Governança)',
